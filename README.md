@@ -3,13 +3,16 @@
 ## Problem
 
 VideoScribe becomes corrupted whenever it connects to the internet.  
-After corruption, reinstalling the software does not fix it. However, deleting the AppData folders listed below has been found to resolve the issue.
+Reinstalling the software alone does not fix it. However, deleting the AppData folders listed below has been found to resolve the issue.
+
 https://github.com/Jayasankha-dev/Sparkol_VideoScribe_Pro_Offline_v2.3.6_Activated/releases/tag/VideoScribe
+
 ## Solution
 
 Use the provided `blockinternet.bat` script to:
+- Kill running VideoScribe processes.
+- Delete the corrupted AppData folders.
 - Block all inbound and outbound internet access for VideoScribe executables.
-- Clear the AppData folders that store corrupted cache and configuration.
 
 Once blocked, VideoScribe can be used fully offline without getting corrupted.
 
@@ -20,7 +23,7 @@ While monitoring network traffic, VideoScribe was seen attempting to connect to 
 - `52.216.24.6:80` (Amazon S3)
 - `18.239.111.69:443` (AWS CloudFront / Global Accelerator)
 
-These are shared AWS IPs and may change over time. Blocking them alone is not enough for a permanent fix — you must block the executable itself.
+**Note:** These are shared AWS IPs and may change over time. This script does **not** block these IPs. Instead, it blocks the executable itself, which is a more reliable method.
 
 ## Instructions
 
@@ -36,7 +39,6 @@ These are shared AWS IPs and may change over time. Blocking them alone is not en
   - `%LOCALAPPDATA%\VideoScribeDesktop`
   - `%APPDATA%\VideoScribeDesktop\Local Store\Library`
 - Searches for `VideoScribe*.exe` on your system and adds Windows Firewall rules to block both **Inbound** and **Outbound** traffic for each executable found.
-- Also blocks the two known AWS IPs (`52.216.24.6` and `18.239.111.69`).
 - Must be run **as Administrator** and **while VideoScribe is open** so the correct executable path is detected.
 
 ## Usage
@@ -49,20 +51,18 @@ These are shared AWS IPs and may change over time. Blocking them alone is not en
    - Kill VideoScribe processes.
    - Delete the AppData folders.
    - Add firewall rules for all `VideoScribe*.exe` files.
-   - Block the known AWS IPs.
 6. After completion, close and reopen VideoScribe. It should now work offline without corruption.
 
 **Warning:** Backup your VideoScribe projects before running, as the script deletes AppData folders.
 
 ## Unblocking
 
-To restore internet access, remove the firewall rules named `Block_VS_*` and `Block_IP_VS_*` from Windows Firewall.
+To restore internet access, remove the firewall rules named `Block_VS_*` from Windows Firewall.
 
 ## Notes
 
 - The script must be run as **Administrator**.
 - Run it **while VideoScribe is open** so the correct executable path is detected.
-- Blocking the IPs alone is not enough; blocking the executable is required.
 - For a more permanent block, consider using the hosts file or a tool like Simplewall to block domains `videoscribe.co` and `sparkol.com`.
 - After blocking, VideoScribe will work in offline mode. All online features (cloud sync, image library, etc.) will be unavailable.
 
